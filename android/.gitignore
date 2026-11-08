@@ -1,0 +1,14 @@
+# Build artifacts
+build/
+.gradle/
+local.properties
+captures/
+
+# Keystore produksi & konfigurasi signing — JANGAN pernah di-commit
+*.keystore
+*.jks
+keystore.properties
+
+# IDE
+.idea/
+*.iml

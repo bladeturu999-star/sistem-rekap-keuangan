@@ -1,0 +1,78 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: apk-build
+  cancel-in-progress: true
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node (>=22 utk Capacitor CLI, dipakai juga untuk web build)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web (Vite)
+        run: npm run build
+
+      # Sinkronkan hasil build web ke aset Android (WebView offline asset).
+      - name: Sync dist ke asset Android
+        run: |
+          rm -f android/app/src/main/assets/assets/index-*.js
+          rm -f android/app/src/main/assets/assets/index-*.css
+          cp dist/index.html android/app/src/main/assets/index.html
+          mkdir -p android/app/src/main/assets/assets
+          cp dist/assets/* android/app/src/main/assets/assets/
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      # Gunakan keystore EKSTERNAL produksi (tidak digenerate otomatis).
+      # Siapkan secret di repo:
+      #   SIGNING_BASE64  -> base64 dari release.keystore produksi
+      #   SIGNING_STORE_PASS / SIGNING_KEY_PASS / SIGNING_KEY_ALIAS
+      #   SIGNING_STORE_FILE (nama file keystore, contoh: production.keystore)
+      # Signature yang sama dipakai di SETIAP versi agar update APK diterima.
+      - name: Restore production keystore from secrets
+        if: ${{ secrets.SIGNING_BASE64 != '' }}
+        run: |
+          echo "${{ secrets.SIGNING_BASE64 }}" | base64 --decode > android/${{ secrets.SIGNING_STORE_FILE }}
+          printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
+            "${{ secrets.SIGNING_STORE_FILE }}" \
+            "${{ secrets.SIGNING_STORE_PASS }}" \
+            "${{ secrets.SIGNING_KEY_ALIAS }}" \
+            "${{ secrets.SIGNING_KEY_PASS }}" > android/keystore.properties
+
+      - name: Build release APK
+        working-directory: android
+        run: gradle app:assembleRelease
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sistem-Rekap-Keuangan-APK
+          path: android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error

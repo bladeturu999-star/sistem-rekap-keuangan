@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom theme for the app -->
+    <style name="Theme.SistemRekapKeuangan" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Splash screen background -->
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+    <!-- Splash screen activity theme (optional, can inherit from main theme) -->
+    <style name="SplashTheme" parent="Theme.SistemRekapKeuangan">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+</resources>
