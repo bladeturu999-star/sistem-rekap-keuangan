@@ -748,8 +748,8 @@ export const LpgView: React.FC<LpgViewProps> = ({
                 Menampilkan transaksi periode: <strong style={{ color: 'var(--text-main)' }}>{periodLabel}</strong> ({filteredTransactions.length} transaksi)
               </p>
             </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <div style={{ position: 'relative' }}>
+            <div className="card-header__actions">
+              <div className="card-header__search" style={{ position: 'relative' }}>
                 <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
                 <input
                   type="text"
@@ -757,7 +757,7 @@ export const LpgView: React.FC<LpgViewProps> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="form-input"
-                  style={{ paddingLeft: '36px', width: '240px' }}
+                  style={{ paddingLeft: '36px' }}
                 />
               </div>
               <button
@@ -868,14 +868,13 @@ export const LpgView: React.FC<LpgViewProps> = ({
                 Atur harga jual LPG per tabung untuk masing-masing pelanggan (CA, CB, CC, dst.)
               </p>
             </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="card-header__actions">
               <input
                 type="text"
                 placeholder="Cari pelanggan / telepon..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="form-input"
-                style={{ width: '220px' }}
               />
               <button
                 onClick={() => {

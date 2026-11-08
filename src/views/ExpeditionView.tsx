@@ -1249,14 +1249,13 @@ export const ExpeditionView: React.FC<ExpeditionViewProps> = ({
                 Rumus Hasil Perjalanan: (Total Berat Muatan × Biaya Tarif/Kg) - Uang Jalan
               </p>
             </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="card-header__actions">
               <input
                 type="text"
                 placeholder="Cari plat, driver, rute..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="form-input"
-                style={{ width: '220px' }}
               />
               <button
                 onClick={() => {
@@ -1407,14 +1406,13 @@ export const ExpeditionView: React.FC<ExpeditionViewProps> = ({
                 Atur armada mobil, supir default, dan tarif muatan per kilogram (Rp/Kg)
               </p>
             </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="card-header__actions">
               <input
                 type="text"
                 placeholder="Cari plat / nama armada..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="form-input"
-                style={{ width: '220px' }}
               />
               <button
                 onClick={() => {

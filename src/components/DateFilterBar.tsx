@@ -66,7 +66,7 @@ export const DateFilterBar: React.FC<DateFilterBarProps> = ({
       </div>
 
       {/* Quick Filter Buttons & Inputs */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+      <div className="date-filter-bar__buttons" style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
         <button
           type="button"
           onClick={() => setDateFilter('today')}
