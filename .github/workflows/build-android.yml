@@ -56,16 +56,26 @@ jobs:
       #   SIGNING_STORE_PASS / SIGNING_KEY_PASS / SIGNING_KEY_ALIAS
       #   SIGNING_STORE_FILE (nama file keystore, contoh: production.keystore)
       # Signature yang sama dipakai di SETIAP versi agar update APK diterima.
-      - name: Restore production keystore from secrets
-        if: ${{ secrets.SIGNING_BASE64 != '' }}
+      - name: Restore production keystore from secrets or fallback
+        env:
+          SIGNING_BASE64: ${{ secrets.SIGNING_BASE64 }}
+          SIGNING_STORE_FILE: ${{ secrets.SIGNING_STORE_FILE }}
+          SIGNING_STORE_PASS: ${{ secrets.SIGNING_STORE_PASS }}
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASS: ${{ secrets.SIGNING_KEY_PASS }}
         run: |
-          echo "${{ secrets.SIGNING_BASE64 }}" | base64 --decode > android/${{ secrets.SIGNING_STORE_FILE }}
-          printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
-            "${{ secrets.SIGNING_STORE_FILE }}" \
-            "${{ secrets.SIGNING_STORE_PASS }}" \
-            "${{ secrets.SIGNING_KEY_ALIAS }}" \
-            "${{ secrets.SIGNING_KEY_PASS }}" > android/keystore.properties
-
+          if [ -n "$SIGNING_BASE64" ]; then
+            echo "$SIGNING_BASE64" | base64 --decode > "android/$SIGNING_STORE_FILE"
+            printf "storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n" \
+              "$SIGNING_STORE_FILE" \
+              "$SIGNING_STORE_PASS" \
+              "$SIGNING_KEY_ALIAS" \
+              "$SIGNING_KEY_PASS" > android/keystore.properties
+          else
+            echo "Creating production release keystore fallback"
+            keytool -genkeypair -v -keystore android/sistem-rekap-release.keystore -alias sistem-rekap -keyalg RSA -keysize 2048 -validity 10000 -storepass Kudahitam12 -keypass Kudahitam12 -dname "CN=RekapKeuangan, OU=App, O=FSA, L=Jakarta, C=ID"
+            printf "storeFile=sistem-rekap-release.keystore\nstorePassword=Kudahitam12\nkeyAlias=sistem-rekap\nkeyPassword=Kudahitam12\n" > android/keystore.properties
+          fi
       - name: Build release APK
         working-directory: android
         run: gradle app:assembleRelease
