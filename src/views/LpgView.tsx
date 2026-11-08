@@ -1012,16 +1012,18 @@ export const LpgView: React.FC<LpgViewProps> = ({
                 Listrik gudang, air, bongkar muat gas, gaji staf pangkalan, sewa tempat, dll.
               </p>
             </div>
-            <button
-              onClick={() => {
-                setExpError('');
-                setShowLpgExpModal(true);
-              }}
-              className="btn btn-primary"
-            >
-              <Plus size={16} />
-              <span>Catat Biaya LPG</span>
-            </button>
+            <div className="card-header__actions">
+              <button
+                onClick={() => {
+                  setExpError('');
+                  setShowLpgExpModal(true);
+                }}
+                className="btn btn-primary"
+              >
+                <Plus size={16} />
+                <span>Catat Biaya LPG</span>
+              </button>
+            </div>
           </div>
 
           <div className="table-container">

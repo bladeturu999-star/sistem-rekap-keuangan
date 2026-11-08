@@ -1459,41 +1459,48 @@ h1, h2, h3, h4, h5, h6 {
 
   .card {
     padding: 16px;
+    max-width: 100%;
   }
 
+  .card-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-bottom: 14px;
+  }
+
+  .card-header > div:first-child {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .card-header > div:last-child,
   .card-header__actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.card-header__actions .form-input,
-.card-header__actions input {
-  width: 220px;
-}
-
-.card-header__search .form-input {
-  width: 240px;
-}
-
-.card-header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
   }
 
-  .card-header > div:last-child {
-    align-self: stretch;
-    width: 100%;
-  }
-
+  .card-header__search,
+  .card-header__search .form-input,
+  .card-header__actions .form-input,
+  .card-header__actions input,
+  .card-header__actions select,
+  .card-header__actions .btn,
   .card-header .btn,
   .card-header > button.btn {
-    width: 100%;
-    justify-content: center;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
   }
 
-    .date-filter-bar__buttons {
+  .date-filter-bar__buttons {
     width: 100%;
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
@@ -1507,20 +1514,29 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.75rem !important;
   }
 
-  .card-header__actions {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    width: 100%;
+  .date-filter-bar__custom-inputs {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
   }
 
-  .card-header__actions > div,
-  .card-header__actions input,
-  .card-header__actions .card-header__search,
-  .card-header__actions .btn {
+  .report-filter-bar {
     width: 100% !important;
-    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .report-filter-bar > div {
+    width: 100% !important;
+  }
+
+  .report-filter-bar .form-select,
+  .report-filter-bar .btn {
+    width: 100% !important;
+    justify-content: center !important;
   }
 
   .btn {

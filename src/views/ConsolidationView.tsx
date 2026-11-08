@@ -411,6 +411,7 @@ export const ConsolidationView: React.FC<ConsolidationViewProps> = ({
         </div>
 
         <div
+          className="dashboard-banner__actions"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -861,14 +862,16 @@ export const ConsolidationView: React.FC<ConsolidationViewProps> = ({
               atau pangkalan (diekspor ke sheet khusus Pengeluaran Umum)
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => setShowGenExpModal(true)}
-            className="btn btn-primary"
-          >
-            <Plus size={16} />
-            <span>Catat Beban Umum</span>
-          </button>
+          <div className="card-header__actions">
+            <button
+              type="button"
+              onClick={() => setShowGenExpModal(true)}
+              className="btn btn-primary"
+            >
+              <Plus size={16} />
+              <span>Catat Beban Umum</span>
+            </button>
+          </div>
         </div>
 
         <div className="table-container">

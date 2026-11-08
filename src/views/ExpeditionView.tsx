@@ -800,7 +800,7 @@ export const ExpeditionView: React.FC<ExpeditionViewProps> = ({
                 </h2>
               </div>
 
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div className="card-header__actions">
                 <button
                   onClick={handleExportMobilExcel}
                   className="btn btn-success"

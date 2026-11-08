@@ -280,17 +280,19 @@ export const ExpensesView: React.FC<ExpensesViewProps> = ({
                 {periodLabel && <span> ({periodLabel})</span>}
               </p>
             </div>
-            <button
-              onClick={() => {
-                setFormError('');
-                setCategory('');
-                setShowModal(true);
-              }}
-              className="btn btn-primary"
-            >
-              <Plus size={16} />
-              <span>Catat Pengeluaran Baru</span>
-            </button>
+            <div className="card-header__actions">
+              <button
+                onClick={() => {
+                  setFormError('');
+                  setCategory('');
+                  setShowModal(true);
+                }}
+                className="btn btn-primary"
+              >
+                <Plus size={16} />
+                <span>Catat Pengeluaran Baru</span>
+              </button>
+            </div>
           </div>
 
           {/* Filter & Sorting Bar */}

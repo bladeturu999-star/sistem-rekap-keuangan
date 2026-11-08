@@ -125,6 +125,7 @@ export const DateFilterBar: React.FC<DateFilterBarProps> = ({
         {/* Custom Start & End Date Inputs */}
         {dateFilter === 'custom' && (
           <div
+            className="date-filter-bar__custom-inputs"
             style={{
               display: 'inline-flex',
               alignItems: 'center',

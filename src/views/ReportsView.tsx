@@ -291,7 +291,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({
               </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <div className="report-filter-bar" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <div>
                 <label className="form-label" style={{ fontSize: '0.75rem', marginBottom: '3px' }}>PILIH BULAN</label>
                 <select
